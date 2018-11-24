@@ -50,8 +50,30 @@ The app defines following CRUD APIs.
     
     DELETE /api/v1/users/{userId}
 
-    POST  /login
+    POST  /api/v1/auth/login
     
+Create User 
+    
+    POST /api/v1/users
+    
+    {
+    	"username": "givantha90",
+    	"password": "welcome@123",
+        "firstName": "Givantha",
+        "lastName": "Kalansuriya",
+        "email": "givanhta@gmail.com",
+        "createdBy": "Givantha",
+        "updatedBy": "Givantha"
+    }
+    
+    POST  /api/v1/auth/login
+    
+    {
+        "username": "givantha12",
+        "password": "welcome@123"
+    }
+    
+   
 You can find the tutorial for this application on my blog -
 
 <https://www.prathapgivantha.wordpress.com>

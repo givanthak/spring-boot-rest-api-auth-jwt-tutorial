@@ -47,15 +47,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     try {
-      //validate the JWT Token
+      // validate the JWT Token
       UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
       // if user is valid with token allow priced the request with adding user to security context
       SecurityContextHolder.getContext().setAuthentication(authentication);
       chain.doFilter(request, response);
-    } catch(SignatureVerificationException e){
+    } catch (SignatureVerificationException e) {
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
       response.getWriter().write("Authentication error, SignatureVerification fail.");
-    } catch (TokenExpiredException e){
+    } catch (TokenExpiredException e) {
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
       response.getWriter().write("Authentication error, The Token's Expired.");
     }
@@ -64,16 +64,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
   private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
     String token = request.getHeader(JWTAuthenticationFilter.HEADER_STRING);
     if (token != null) {
-        // parse the token.
-        String user =
-                JWT.require(Algorithm.HMAC512(JWTAuthenticationFilter.SECRET.getBytes()))
-                        .build()
-                        .verify(token.replace(JWTAuthenticationFilter.TOKEN_PREFIX, ""))
-                        .getSubject();
+      // parse the token.
+      String user =
+          JWT.require(Algorithm.HMAC512(JWTAuthenticationFilter.SECRET.getBytes()))
+              .build()
+              .verify(token.replace(JWTAuthenticationFilter.TOKEN_PREFIX, ""))
+              .getSubject();
 
-        if (user != null) {
-          return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-        }
+      if (user != null) {
+        return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+      }
       return null;
     }
     return null;

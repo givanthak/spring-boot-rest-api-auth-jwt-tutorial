@@ -22,7 +22,7 @@ import java.util.Date;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
   public static final String SECRET = "SecretKeyToGenJWTs";
-  public static final long EXPIRATION_TIME = 864_000_000; // 10 days
+  public static final long EXPIRATION_TIME = 86400000; // 1 days
   public static final String TOKEN_PREFIX = "Bearer ";
   public static final String HEADER_STRING = "Authorization";
 
@@ -37,7 +37,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
     try {
 
-      com.staxrt.tutorial.model.User loginUser = new ObjectMapper().readValue(request.getInputStream(), com.staxrt.tutorial.model.User.class);
+      com.staxrt.tutorial.model.User loginUser =
+          new ObjectMapper()
+              .readValue(request.getInputStream(), com.staxrt.tutorial.model.User.class);
 
       return authenticationManager.authenticate(
           new UsernamePasswordAuthenticationToken(
