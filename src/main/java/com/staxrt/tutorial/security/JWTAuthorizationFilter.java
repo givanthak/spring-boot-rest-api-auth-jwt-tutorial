@@ -2,6 +2,9 @@ package com.staxrt.tutorial.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,12 +46,19 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
       return;
     }
 
-    //validate the JWT Token
-    UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
-
-    // if user is valid with token allow priced the request with adding user to security context
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    chain.doFilter(request, response);
+    try {
+      //validate the JWT Token
+      UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
+      // if user is valid with token allow priced the request with adding user to security context
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+      chain.doFilter(request, response);
+    } catch(SignatureVerificationException e){
+      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+      response.getWriter().write("Authentication error, SignatureVerification fail.");
+    } catch (TokenExpiredException e){
+      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+      response.getWriter().write("Authentication error, The Token's Expired.");
+    }
   }
 
   private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
