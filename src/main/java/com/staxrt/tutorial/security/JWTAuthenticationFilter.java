@@ -21,7 +21,7 @@ import java.util.Date;
 /** @author Givantha Kalansuriya @Project spring-boot-rest-api-auth-jwt-tutorial */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-  public static final String SECRET = "SecretKeyToGenJWTs";
+  public static final String SECRET = "121341werw244234w25234wewerwerwer";
   public static final long EXPIRATION_TIME = 86400000; // 1 days
   public static final String TOKEN_PREFIX = "Bearer ";
   public static final String HEADER_STRING = "Authorization";
