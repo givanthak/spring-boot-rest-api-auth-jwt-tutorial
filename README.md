@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/givanthak/spring-boot-rest-api-auth-jwt-tutorial.svg?branch=master)](https://travis-ci.com/givanthak/spring-boot-rest-api-auth-jwt-tutorial)
 [![Known Vulnerabilities](https://snyk.io/test/github/givanthak/spring-boot-rest-api-tutorial/badge.svg)](https://snyk.io/test/github/givanthak/spring-boot-rest-api-tutorial)
 
 # Sample REST CRUD API Securing with Spring Security and JWT
